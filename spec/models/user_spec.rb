@@ -19,6 +19,12 @@ RSpec.describe User, type: :model do
    it { is_expected.to validate_length_of(:password).is_at_least(6) }
  
    describe "attributes" do
+     it "should format the users name" do
+         user.name = "user name"
+         user.save
+         expect(user.name). to eq "User Name"
+     end
+       
      it "should have name and email attributes" do
        expect(user).to have_attributes(name: "Bloccit User", email: "user@bloccit.com")
      end

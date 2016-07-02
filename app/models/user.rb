@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 
+   before_save :format_name
  # #2
    before_save { self.email = email.downcase if email.present? }
 
@@ -16,5 +17,16 @@ class User < ActiveRecord::Base
 
  # #6
    has_secure_password
+   
+   def format_name
+      if name
+          name_array = []
+          name.split.each do | partial_name |
+              name_array << partial_name.capitalize
+          end
+          
+          self.name = name_array.join(" ")
+      end
+   end
 
 end
