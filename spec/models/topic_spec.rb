@@ -12,6 +12,9 @@ RSpec.describe Topic, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:description) }
     
+    it { is_expected.to have_many(:labelings) }
+    it { is_expected.to have_many(:labels) }
+    
 
  # #1
    describe "attributes" do
