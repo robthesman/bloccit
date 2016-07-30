@@ -18,8 +18,8 @@ RSpec.describe Topic, type: :model do
 
  # #1
    describe "attributes" do
-     it "has name, description, and public attributes" do
-       expect(topic).to have_attributes(name: name, description: description, public: public)
+     it "has name and description attributes" do
+       expect(topic).to have_attributes(name: topic.name, description: topic.description)
      end
 
  # #2
