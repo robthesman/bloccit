@@ -26,3 +26,48 @@
  
  <h2>Comments</h2>
  <%= render @user.comments %>
+
+<div class="row">
+   <div class="col-md-8">
+     <div class="media">
+      <% if @user.have_any_post? %>
+        <h2>My Posts</h2>
+          <%= render @user.posts %>
+      <% else %>
+        <h2>My Posts</h2>
+        <p><%= @user.name %> has not submitted any posts yet</p>
+      <% end %>
+      <% if @user.have_any_comment? %>
+        <h2>My Comments</h2>
+        <%= render @user.comments %>
+      <% else %>
+        <h2>My Comments</h2>
+        <p><%= @user.name %> has not submitted any comments yet</p>
+      <% end %>
+     </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-8">
+    <h2>Favorite Posts</h2>
+      <div class="media">
+        <% @user.favorite_post_of(@user).each do |favorite_post| %>
+          <div class="row">
+            <% avatar_owner_of_post = @user.avatar_of_favorite_post(favorite_post, 64) %>
+            <% if avatar_owner_of_post %>
+              <div class="pull-left">
+                <%= image_tag avatar_owner_of_post, class: 'media-object' %>
+              </div>
+            <% end %>
+            <div class="pull-left">
+              <h5><%= favorite_post.title %></h5>
+              <small>
+              Voted <%=  pluralize(@user.number_of_votes(@user,favorite_post), 'time') %>,
+              Commented <%=  pluralize(@user.number_of_comments(@user,favorite_post), 'time') %>
+              </small>
+            </div>
+          </div>
+        <% end %>
+      </div>
+  </div>  
+</div>

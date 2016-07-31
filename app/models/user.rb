@@ -35,4 +35,36 @@ class User < ActiveRecord::Base
      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
    end
 
+# # Code related to Assignment 45
+
+   def have_any_post?
+    self.posts.count > 0
+   end
+   
+   def have_any_comment?
+    self.comments.count > 0
+   end
+  
+   def favorite_post_of(user)
+    mark_fav = Favorite.where(user_id: user.id) 
+    list_fav_postID = mark_fav.pluck(:post_id) 
+    @favorite_post = Post.where(id: list_fav_postID) 
+   end
+   
+   def avatar_of_favorite_post(favorite_post, size)
+    @user = favorite_post.user
+    gravatar_id = Digest::MD5::hexdigest(@user.email).downcase
+      "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
+   end
+   
+   def number_of_votes(user, a_favorite_post)
+    have_vote = Vote.where(user_id: user.id, post_id: a_favorite_post.id)
+    have_vote.count
+   end
+  
+   def number_of_comments(user, a_favorite_post)
+    have_comment = Comment.where(user_id: user.id, post_id: a_favorite_post.id)
+    have_comment.count
+   end
+
 end

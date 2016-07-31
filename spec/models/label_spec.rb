@@ -28,7 +28,7 @@
       it "takes a comma delimited string and returns an array of Labels" do
         labels = "#{label.name}, #{label2.name}"
         labels_as_a = [label, label2]
- # #23
+ 
         expect(Label.update_labels(labels)).to eq(labels_as_a)
       end
     end
